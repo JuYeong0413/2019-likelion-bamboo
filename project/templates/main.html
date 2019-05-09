@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="d-flex justify-content-center main-container">
+    <div class="d-flex flex-column justify-content-center">
+        <img src="{% static 'images/bamboo-trees.jpg' %}" class="img-thumbnail">
+        <br>
+        
+        <form action="#" method="POST">
+            {% csrf_token %}
+            <div class="form-group row col-xs-2 justify-content-center">
+                <div class="col-xs-2 mb-3">
+                    <input type="text" class="form-control" name="name" placeholder="닉네임 입력 (세션에 저장됨)" required>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <input type="submit" class="btn btn-outline-success" id="list" formaction="{% url 'list' %}" value="대나무숲 접속"> &nbsp; &nbsp; &nbsp; &nbsp;
+                <input type="submit" class="btn btn-outline-success" id="write" formaction="{% url 'write_post' %}" value="글 작성하기">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center main-container">
+    <p>
+        <h1 style="font-family: YunTaemin;"><center>성공적으로 제보가 수정되었습니다.</center></h1>
+    </p>
+    
+    <form action="{% url 'list' %}" method="POST">
+        {% csrf_token %}
+        <center><input type="submit" class="btn btn-outline-success" id="list" value="제보글 확인하기"></center>
+    </form>
+</div>
+{% endblock %}

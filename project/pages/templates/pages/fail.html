@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center main-container">
+    <p>
+        <h1 style="font-family: YunTaemin;"><center>비밀번호가 틀렸습니다.</center></h1>
+        <h2 style="font-family: YunTaemin;"><center>비밀번호를 잊어버리셨다면 개발자에게 문의해주세요!</center></h2>
+    </p>
+    
+    <form action="{% url 'list' %}" method="POST">
+        {% csrf_token %}
+        <div class="d-flex row-container justify-content-center main-container">
+            <!--<input type="button" class="btn btn-outline-info" onclick="history.back()" value="비밀번호 다시 입력하기"> &nbsp; &nbsp;-->
+            <a href="#" class="btn btn-outline-info" onclick="GoBackWithRefresh();">비밀번호 다시 입력하기</a> &nbsp; &nbsp;
+            <input type="submit" class="btn btn-outline-success" id="list" value="대나무숲으로 돌아가기">
+        </div>
+    </form>
+</div>
+
+<script>
+function GoBackWithRefresh(event) {
+    if ('referrer' in document) {
+        window.location = document.referrer;
+        /* OR */
+        //location.replace(document.referrer);
+    } else {
+        window.history.back();
+    }
+}
+</script>
+{% endblock %}

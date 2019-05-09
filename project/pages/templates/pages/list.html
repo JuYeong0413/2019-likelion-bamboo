@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="d-flex row-container main-container">
+    <div class="welcome">
+        <form action="{% url 'write_post' %}" method="POST">
+            {% csrf_token %}
+            <p>
+                <h4><b>{{ name }}</b>님, 어서오세요!</h4>
+                <input type="hidden" name="name" value="{{ name }}">
+                <!--<h4><b>동대멋사 대나무숲</b>에 오신 것을 환영합니다!</h4>-->
+                <input type="submit" class="btn btn-outline-success btn-block" id="write" value="제보글 작성하러 가기">
+            </p>
+        </form>
+    </div>
+</div>
+{% for item in posts %}
+<div class="d-flex row-container main-container listtext">
+    <div class="card w-100">
+        <form action="{% url 'verification' %}?action=edit&id={{ item.pk }}" method="POST">
+            {% csrf_token %}
+            <h5 class="card-header">{{ item.pk }}번째 어흥 ฅ^•ﻌ•^ฅ</h5>
+            <div class="card-body">
+                {% if item.img %}
+                    <img src="{{ item.img.url }}" class="card-img-top post-img" alt="">
+                {% endif %}
+                <p class="card-text listcontent">{{ item.content|linebreaks }}</p>
+                                
+                <!-- LikeBtn.com BEGIN -->
+                <span class="likebtn-wrapper" data-ef_voting="push" data-identifier="item_{{ item.pk }}" data-share_size="small" data-loader_show="true"></span>
+                <script>
+                    (function(d,e,s){
+                    if(d.getElementById("likebtn_wjs")) return;
+                    a=d.createElement(e);
+                    m=d.getElementsByTagName(e)[0];
+                    a.async=1;
+                    a.id="likebtn_wjs";
+                    a.src=s;
+                    m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
+                <!-- LikeBtn.com END -->
+                <br><br>
+                
+                <h6 class="text-muted">{{ item.created_at }}에 작성됨</h6>
+                {% if item.is_edited %}
+                    <h6 class="text-muted">{{ item.updated_at }}에 마지막으로 수정됨</h6>
+                {% endif %}
+                
+                <input type="submit" class="btn btn-outline-success btn-xs" id="update" value="글 수정하기"> &nbsp;
+                <a href="{% url 'verification' %}?action=delete&id={{ item.pk }}" class="btn btn-outline-danger btn-xs" id="delete">글 삭제하기</a>
+        </form>
+        </div>
+        
+        <div class="card-footer">
+            <h6 class="text-muted"><b>{{ item.comments.count }}</b> Comments</h6>
+            {% if item.comments %}
+                {% for comment in item.comments %}
+                    <h6><b>{{ comment.writer }}</b> : {{ comment.message }}</h6>
+                {% endfor %}
+            {% endif %}
+            
+            <div class="flex column-container">
+                <form action="{% url 'write_comment' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="post" value="{{ item.pk }}">
+                    
+                    <div class="d-flex column-container comment-container">
+                        <input type="hidden" name="writer" value="{{ name }}">
+                        <input type="text" class="form-control form-control-sm write-comment comment-container" name="message" required> &nbsp; &nbsp;
+                        <input type="submit" class="btn btn-outline-secondary btn-xs" value="입력">
+                    </div>
+                
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
+{% endblock %}

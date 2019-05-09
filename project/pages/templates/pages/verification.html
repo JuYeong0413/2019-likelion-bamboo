@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="d-flex justify-content-center main-container">
+    <div class="d-flex flex-column justify-content-center">
+        <p>
+            <h1 style="font-family: YunTaemin;">
+                <center>
+                {% if request.GET.action == "edit" %}
+                글을 수정하기 위해
+                {% endif %}
+                
+                {% if request.GET.action == "delete" %}
+                글을 삭제하기 위해
+                {% endif %}
+                비밀번호를 입력해 주세요.
+                </center>
+            </h1>
+        </p>
+        
+        <form action="{% url 'check_pwd' %}" method="POST">
+            {% csrf_token %}
+            <!--<div class="row justify-content-center">-->
+                <input type="hidden" name="action" value="{{ request.GET.action }}">
+                <input type="hidden" name="id" value="{{ request.GET.id }}">
+            <!--    <input type="text" class="form-control col-md-6" name="password" required> &nbsp; &nbsp;-->
+            <!--    <input type="submit" class="btn btn-outline-success btn-xs" value="확인">-->
+            
+                <div class="d-flex column-container comment-container">
+                    <input type="text" class="form-control form-control-sm write-comment comment-container" name="password" required> &nbsp; &nbsp;
+                    <input type="submit" class="btn btn-outline-success btn-xs" value="확인">
+                </div>
+            <!--</div>-->
+        </form>
+        
+    </div>
+</div>
+{% endblock %}

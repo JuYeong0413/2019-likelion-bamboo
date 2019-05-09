@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<form action="{% url 'update' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="pk" value="{{ post.pk }}">
+    <div class="d-flex row-container justify-content-center main-container">
+        <div class="mb-3">
+            <label for="validationTextarea" class="textarea-label">* 제보할 내용 수정</label>
+            <textarea rows="4" class="form-control" name="content" id="validationTextarea" placeholder="제보할 내용을 적어주세요." required>{{ post.content }}</textarea>
+            
+            <br>
+            
+            <label class="textarea-label">* 사진 수정하기</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" name="file" id="customFile" accept="image/*">
+                <label class="custom-file-label" for="customFile">{{ post.img }}</label>
+            </div>
+            
+            <br><br>
+            
+            <label class="form-check-label textarea-label" for="checkbox">* 현재 사진을 삭제하려면 체크하세요. ☞ </label> &nbsp; &nbsp; &nbsp;
+            <input type="checkbox" class="form-check-input" name="checkbox" id="check" value="img_delete">
+            <br><br>
+            
+            <label class="textarea-label">* 비밀번호 (제보글 수정/삭제시 사용됩니다.)</label>
+            <input type="text" class="form-control" name="password" placeholder="{{ post.password }}" readonly>
+            
+            <br>
+            
+            <div class="d-flex row-container justify-content-center main-container">
+                <input type="submit" class="btn btn-outline-success btn-block" id="upload" value="수정하기"></button><br> &nbsp; 
+                <a href="{% url 'list' %}" class="btn btn-outline-info btn-block">취소하기</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+// Add the following code if you want the name of the file appear on select
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+</script>
+{% endblock %}
