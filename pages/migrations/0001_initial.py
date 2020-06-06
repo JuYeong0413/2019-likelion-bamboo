@@ -36,6 +36,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='post',
-            field=models.ForeignKey(on_delete='CASCADE', to='pages.Post'),
+            field=models.ForeignKey(on_delete=models.CASCADE, to='pages.Post'),
         ),
     ]
