@@ -17,13 +17,19 @@ def list(request):
 
 
 def write_post(request):
-    
+    if request.method == "POST":
+        name = request.POST.get('name')
+        request.session['name'] = name
+
+    if 'name' in request.session:
+        name = request.session['name']
+
     return render(request, 'pages/write.html')
 
 
 def write_success(request):
     if request.method == "POST":
-        name = request.POST.get('name')
+        name = request.session['name']
         password = request.POST.get('password')
         content = request.POST.get('content')
         image = request.FILES.get('file')
@@ -81,8 +87,9 @@ def update(request):
 
 
 def update_success(request):
-    
-    return render(request, 'pages/update_success.html')
+    name = request.session['name']
+
+    return render(request, 'pages/update_success.html', {'name': name})
     
     
 def delete(request, id):
@@ -93,8 +100,9 @@ def delete(request, id):
 
 
 def delete_success(request):
-    
-    return render(request, 'pages/delete_success.html')
+    name = request.session['name']
+
+    return render(request, 'pages/delete_success.html', {'name': name})
     
 
 def verification(request):

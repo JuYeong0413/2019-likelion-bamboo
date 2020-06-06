@@ -10,6 +10,7 @@
     <form action="#" method="POST">
             {% csrf_token %}
             <div class="row justify-content-center">
+                <input type="hidden" name="name" value="{{ name }}">
                 <input type="submit" class="btn btn-outline-success" id="list" formaction="{% url 'list' %}" value="제보글 목록 보기"> &nbsp; &nbsp; &nbsp; &nbsp;
                 <input type="submit" class="btn btn-outline-success" id="write" formaction="{% url 'write_post' %}" value="제보글 작성하기">
             </div>
