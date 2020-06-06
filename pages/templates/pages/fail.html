@@ -10,6 +10,7 @@
     
     <form action="{% url 'list' %}" method="POST">
         {% csrf_token %}
+        <input type="hidden" class="form-control" name="name" value="{{ name }}">
         <div class="d-flex row-container justify-content-center main-container">
             <!--<input type="button" class="btn btn-outline-info" onclick="history.back()" value="비밀번호 다시 입력하기"> &nbsp; &nbsp;-->
             <a href="#" class="btn btn-outline-info" onclick="GoBackWithRefresh();">비밀번호 다시 입력하기</a> &nbsp; &nbsp;

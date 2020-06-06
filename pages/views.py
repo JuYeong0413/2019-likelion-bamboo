@@ -6,6 +6,7 @@ import pdb
 def list(request):
     if request.method == "POST":
         name = request.POST.get('name')
+        request.session['name'] = name
 
     if 'name' in request.session:
         name = request.session['name']
@@ -119,5 +120,5 @@ def check_pwd(request):
         
 
 def fail(request):
-    
-    return render(request, 'pages/fail.html')
+    name = request.session['name']
+    return render(request, 'pages/fail.html', {'name': name})
