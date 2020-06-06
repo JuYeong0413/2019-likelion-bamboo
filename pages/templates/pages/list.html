@@ -26,20 +26,7 @@
                     <img src="{{ item.img.url }}" class="card-img-top post-img" alt="">
                 {% endif %}
                 <p class="card-text listcontent">{{ item.content|linebreaks }}</p>
-                                
-                <!-- LikeBtn.com BEGIN -->
-                <span class="likebtn-wrapper" data-ef_voting="push" data-identifier="item_{{ item.pk }}" data-share_size="small" data-loader_show="true"></span>
-                <script>
-                    (function(d,e,s){
-                    if(d.getElementById("likebtn_wjs")) return;
-                    a=d.createElement(e);
-                    m=d.getElementsByTagName(e)[0];
-                    a.async=1;
-                    a.id="likebtn_wjs";
-                    a.src=s;
-                    m.parentNode.insertBefore(a, m)})(document,"script","//w.likebtn.com/js/w/widget.js");</script>
-                <!-- LikeBtn.com END -->
-                <br><br>
+                <br>
                 
                 <h6 class="text-muted">{{ item.created_at }}에 작성됨</h6>
                 {% if item.is_edited %}
